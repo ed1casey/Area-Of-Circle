@@ -1,0 +1,31 @@
+SELECT p.ProductName, c.CategoryName
+FROM Products p
+LEFT JOIN ProductCategories pc ON p.ProductId = pc.ProductId
+LEFT JOIN Categories c ON pc.CategoryId = c.CategoryId
+ORDER BY p.ProductName, c.CategoryName;
+
+/*
+Структура таблиц может выглядеть следующим образом:
+
+Products:
+
+ProductId(ID продукта, primarykey)
+ProductName(Имя продукта)
+
+Categories:
+
+CategoryId(ID категории, primarykey)
+CategoryName(Имя категории)
+
+ProductCategories:
+
+ProductId(ID продукта, foreignkey)
+CategoryId(ID категории, foreignkey)
+
+LEFT JOIN ProductCategories pc ON p.ProductId = pc.ProductId соединяет таблицу продуктов с таблицей связей, позволяя получить все ID категорий для каждого продукта.
+
+LEFT JOIN Categories c ON pc.CategoryId = c.CategoryId затем соединяет результат с таблицей категорий, чтобы получить имена категорий для каждого ID категории.
+
+Если у продукта нет категорий, соединение с ProductCategories и Categories не найдет совпадений, и CategoryName будет NULL, но имя продукта все равно будет включено в результаты благодаря использованию LEFT JOIN.
+
+ORDER BY p.ProductName, c.CategoryName сортирует результаты по имени продукта и, внутри каждого продукта, по имени категории.
